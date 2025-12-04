@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Score Client - Template ABCSM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: white;
+            color: #333;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #c4d82e;
+        }
+        
+        .header-logo {
+            font-size: 36px;
+            font-weight: 900;
+            color: #c4d82e;
+            margin-bottom: 10px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .intro-box {
+            background: linear-gradient(135deg, #c4d82e 0%, #a8bd24 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .intro-box h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        
+        .intro-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .intro-box li {
+            padding: 6px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .intro-box li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .instructions {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .instructions h3 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 8px 0;
+            color: #856404;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            color: #667eea;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .formula-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        
+        .formula-box h3 {
+            font-family: 'Segoe UI', sans-serif;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .add-client-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: all 0.3s;
+        }
+        
+        .add-client-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .client-form {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #667eea;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 13px;
+        }
+        
+        .form-group input {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-group small {
+            color: #666;
+            font-size: 11px;
+            margin-top: 3px;
+        }
+        
+        .client-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .client-table thead {
+            background: #667eea;
+            color: white;
+        }
+        
+        .client-table th {
+            padding: 15px 10px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        
+        .client-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 13px;
+        }
+        
+        .client-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .health-score {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            min-width: 50px;
+            text-align: center;
+        }
+        
+        .health-excellent {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .health-good {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .health-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .health-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .delete-btn:hover {
+            background: #c82333;
+        }
+        
+        .export-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 25px;
+            background: #e8eaf6;
+            border-radius: 10px;
+        }
+        
+        .export-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        
+        .export-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .client-table {
+                font-size: 11px;
+            }
+            
+            .client-table th,
+            .client-table td {
+                padding: 8px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-logo">abcsm.fr</div>
+            <h1>📊 Health Score Automatique</h1>
+            <p>Détecte tes clients à risque avant qu'il ne soit trop tard</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro-box">
+                <h2>🎯 Ce template va te sauver des heures (et des clients)</h2>
+                <ul>
+                    <li>Calcul automatique du health score (0-100) pour chaque client</li>
+                    <li>Système d'alerte visuel (vert, bleu, orange, rouge)</li>
+                    <li>Pondération intelligente de 5 critères essentiels</li>
+                    <li>Prêt à l'emploi : remplis les données et c'est parti</li>
+                    <li>Export CSV pour intégration dans ton CRM</li>
+                </ul>
+            </div>
+            
+            <div class="instructions">
+                <h3>📝 Mode d'emploi (2 minutes chrono)</h3>
+                <ol>
+                    <li><strong>Clique sur "Ajouter un client"</strong> et remplis les 6 données essentielles</li>
+                    <li><strong>Le score se calcule automatiquement</strong> selon la formule pondérée</li>
+                    <li><strong>Identifie visuellement</strong> tes clients à risque (score rouge/orange)</li>
+                    <li><strong>Exporte en CSV</strong> pour suivre l'évolution dans le temps</li>
+                    <li><strong>Agis immédiatement</strong> sur les clients sous 60/100</li>
+                </ol>
+            </div>
+            
+            <h2 class="section-title">🔢 Formule de Calcul du Health Score</h2>
+            
+            <div class="formula-box">
+                <h3>Pondération automatique (5 critères)</h3>
+                <p><strong>Health Score = </strong></p>
+                <p>• <strong>Usage produit (30%)</strong> : Nb connexions/semaine ÷ 7 × 100 × 0.30</p>
+                <p>• <strong>Tickets support (25%)</strong> : (10 - Nb tickets) ÷ 10 × 100 × 0.25</p>
+                <p>• <strong>NPS (20%)</strong> : Score NPS × 10 × 0.20</p>
+                <p>• <strong>Proximité renouvellement (15%)</strong> : Min(jours/180, 1) × 100 × 0.15</p>
+                <p>• <strong>Dernier QBR (10%)</strong> : Max(0, (90 - jours) / 90) × 100 × 0.10</p>
+                <br>
+                <p><strong>Interprétation :</strong></p>
+                <p>• <span style="color: #155724; font-weight: bold;">80-100 = Excellent</span> (client champion, upsell possible)</p>
+                <p>• <span style="color: #0c5460; font-weight: bold;">60-79 = Bon</span> (client actif, maintenir l'engagement)</p>
+                <p>• <span style="color: #856404; font-weight: bold;">40-59 = À surveiller</span> (signaux faibles, QBR recommandé)</p>
+                <p>• <span style="color: #721c24; font-weight: bold;">0-39 = À risque</span> (action urgente, risque churn élevé)</p>
+            </div>
+            
+            <h2 class="section-title">➕ Ajouter un Client</h2>
+            
+            <div class="client-form" id="clientForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="clientName">Nom du client *</label>
+                        <input type="text" id="clientName" placeholder="Ex: TechCorp" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientMRR">MRR (€) *</label>
+                        <input type="number" id="clientMRR" placeholder="Ex: 2500" required>
+                        <small>Revenu mensuel récurrent</small>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="usageRate">Connexions/semaine *</label>
+                        <input type="number" id="usageRate" placeholder="Ex: 4" min="0" max="7" step="0.1" required>
+                        <small>Nombre moyen de connexions par semaine</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="supportTickets">Tickets support (ce mois) *</label>
+                        <input type="number" id="supportTickets" placeholder="Ex: 2" min="0" required>
+                        <small>Nombre de tickets ouverts ce mois</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="npsScore">Score NPS *</label>
+                        <input type="number" id="npsScore" placeholder="Ex: 8" min="0" max="10" step="0.1" required>
+                        <small>Score NPS récent (0-10)</small>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="renewalDays">Jours avant renouvellement *</label>
+                        <input type="number" id="renewalDays" placeholder="Ex: 120" min="0" required>
+                        <small>Nombre de jours avant la date de renewal</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastQBR">Jours depuis dernier QBR *</label>
+                        <input type="number" id="lastQBR" placeholder="Ex: 45" min="0" required>
+                        <small>Nombre de jours depuis la dernière revue</small>
+                    </div>
+                </div>
+                
+                <button class="add-client-btn" onclick="addClient()">➕ Ajouter ce client</button>
+            </div>
+            
+            <h2 class="section-title">📊 Statistiques Globales</h2>
+            
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalClients">0</div>
+                    <div class="stat-label">Clients trackés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="avgScore">-</div>
+                    <div class="stat-label">Score moyen</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="atRiskClients">0</div>
+                    <div class="stat-label">Clients à risque</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalMRR">0€</div>
+                    <div class="stat-label">MRR total</div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">👥 Tableau de Bord Clients</h2>
+            
+            <table class="client-table" id="clientTable">
+                <thead>
+                    <tr>
+                        <th>Client</th>
+                        <th>MRR</th>
+                        <th>Usage</th>
+                        <th>Tickets</th>
+                        <th>NPS</th>
+                        <th>Renewal</th>
+                        <th>QBR</th>
+                        <th>Health Score</th>
+                        <th>Statut</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="clientTableBody">
+                    <tr>
+                        <td colspan="10" style="text-align: center; color: #666; padding: 40px;">
+                            Aucun client ajouté. Clique sur "Ajouter un client" pour commencer.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="export-section">
+                <h3 style="color: #5e35b1; margin-bottom: 15px;">💾 Exporter tes données</h3>
+                <p style="margin-bottom: 20px; color: #666;">Sauvegarde ton tableau pour suivre l'évolution ou importer dans ton CRM</p>
+                <button class="export-btn" onclick="exportToCSV()">📥 Télécharger en CSV</button>
+                <button class="export-btn" onclick="printTable()">🖨️ Imprimer</button>
+            </div>
+            
+            <div style="background: #e8eaf6; padding: 25px; border-radius: 10px; margin: 30px 0;">
+                <h3 style="color: #5e35b1; margin-bottom: 15px;">🚀 Prêt à automatiser pour de vrai ?</h3>
+                <p style="margin-bottom: 15px; color: #666;">
+                    Ce template HTML est parfait pour commencer. Mais si tu veux un système VRAIMENT automatisé qui :
+                </p>
+                <ul style="list-style: none; padding: 0; margin-bottom: 20px;">
+                    <li style="padding: 5px 0; color: #666;">✓ Se connecte directement à ton CRM (HubSpot, Pipedrive, Salesforce)</li>
+                    <li style="padding: 5px 0; color: #666;">✓ Récupère les données en temps réel (usage, support, NPS)</li>
+                    <li style="padding: 5px 0; color: #666;">✓ T'envoie des alertes Slack quand un client devient à risque</li>
+                    <li style="padding: 5px 0; color: #666;">✓ Génère des rapports automatiques pour ta direction</li>
+                </ul>
+                <p style="color: #666; font-weight: bold;">
+                    👉 Rejoins <strong>CS Performer Solo</strong> où je t'apprends à construire ce système avec Airtable + Zapier (sans coder).
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let clients = [];
+
+        function calculateHealthScore(client) {
+            // Critère 1 : Usage (30%) - connexions par semaine
+            const usageScore = (client.usageRate / 7) * 100 * 0.30;
+            
+            // Critère 2 : Tickets support (25%) - moins de tickets = meilleur score
+            const ticketScore = Math.max(0, (10 - client.supportTickets) / 10) * 100 * 0.25;
+            
+            // Critère 3 : NPS (20%)
+            const npsScore = client.npsScore * 10 * 0.20;
+            
+            // Critère 4 : Proximité renouvellement (15%) - plus c'est loin, mieux c'est
+            const renewalScore = Math.min(client.renewalDays / 180, 1) * 100 * 0.15;
+            
+            // Critère 5 : Dernier QBR (10%) - plus c'est récent, mieux c'est
+            const qbrScore = Math.max(0, (90 - client.lastQBR) / 90) * 100 * 0.10;
+            
+            return Math.round(usageScore + ticketScore + npsScore + renewalScore + qbrScore);
+        }
+
+        function getHealthClass(score) {
+            if (score >= 80) return 'health-excellent';
+            if (score >= 60) return 'health-good';
+            if (score >= 40) return 'health-warning';
+            return 'health-danger';
+        }
+
+        function getStatus(score) {
+            if (score >= 80) return '🌟 Champion';
+            if (score >= 60) return '✅ Actif';
+            if (score >= 40) return '⚠️ Surveiller';
+            return '🚨 À risque';
+        }
+
+        function addClient() {
+            const name = document.getElementById('clientName').value;
+            const mrr = parseFloat(document.getElementById('clientMRR').value);
+            const usageRate = parseFloat(document.getElementById('usageRate').value);
+            const supportTickets = parseInt(document.getElementById('supportTickets').value);
+            const npsScore = parseFloat(document.getElementById('npsScore').value);
+            const renewalDays = parseInt(document.getElementById('renewalDays').value);
+            const lastQBR = parseInt(document.getElementById('lastQBR').value);
+
+            if (!name || isNaN(mrr) || isNaN(usageRate) || isNaN(supportTickets) || isNaN(npsScore) || isNaN(renewalDays) || isNaN(lastQBR)) {
+                alert('⚠️ Merci de remplir tous les champs correctement');
+                return;
+            }
+
+            const client = {
+                id: Date.now(),
+                name,
+                mrr,
+                usageRate,
+                supportTickets,
+                npsScore,
+                renewalDays,
+                lastQBR
+            };
+
+            client.healthScore = calculateHealthScore(client);
+            clients.push(client);
+            
+            updateTable();
+            updateStats();
+            clearForm();
+        }
+
+        function deleteClient(id) {
+            if (confirm('Es-tu sûr(e) de vouloir supprimer ce client ?')) {
+                clients = clients.filter(c => c.id !== id);
+                updateTable();
+                updateStats();
+            }
+        }
+
+        function updateTable() {
+            const tbody = document.getElementById('clientTableBody');
+            
+            if (clients.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="10" style="text-align: center; color: #666; padding: 40px;">
+                            Aucun client ajouté. Clique sur "Ajouter un client" pour commencer.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = clients.map(client => `
+                <tr>
+                    <td><strong>${client.name}</strong></td>
+                    <td>${client.mrr.toLocaleString()}€</td>
+                    <td>${client.usageRate}/sem</td>
+                    <td>${client.supportTickets}</td>
+                    <td>${client.npsScore}/10</td>
+                    <td>${client.renewalDays}j</td>
+                    <td>${client.lastQBR}j</td>
+                    <td><span class="health-score ${getHealthClass(client.healthScore)}">${client.healthScore}</span></td>
+                    <td>${getStatus(client.healthScore)}</td>
+                    <td><button class="delete-btn" onclick="deleteClient(${client.id})">🗑️</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function updateStats() {
+            const totalClients = clients.length;
+            const avgScore = totalClients > 0 
+                ? Math.round(clients.reduce((sum, c) => sum + c.healthScore, 0) / totalClients) 
+                : 0;
+            const atRiskClients = clients.filter(c => c.healthScore < 60).length;
+            const totalMRR = clients.reduce((sum, c) => sum + c.mrr, 0);
+
+            document.getElementById('totalClients').textContent = totalClients;
+            document.getElementById('avgScore').textContent = totalClients > 0 ? avgScore : '-';
+            document.getElementById('atRiskClients').textContent = atRiskClients;
+            document.getElementById('totalMRR').textContent = totalMRR.toLocaleString() + '€';
+        }
+
+        function clearForm() {
+            document.getElementById('clientName').value = '';
+            document.getElementById('clientMRR').value = '';
+            document.getElementById('usageRate').value = '';
+            document.getElementById('supportTickets').value = '';
+            document.getElementById('npsScore').value = '';
+            document.getElementById('renewalDays').value = '';
+            document.getElementById('lastQBR').value = '';
+        }
+
+        function exportToCSV() {
+            if (clients.length === 0) {
+                alert('⚠️ Aucun client à exporter');
+                return;
+            }
+
+            let csv = 'Nom,MRR,Usage (conn/sem),Tickets,NPS,Jours renewal,Jours QBR,Health Score,Statut\n';
+            
+            clients.forEach(client => {
+                csv += `"${client.name}",${client.mrr},${client.usageRate},${client.supportTickets},${client.npsScore},${client.renewalDays},${client.lastQBR},${client.healthScore},"${getStatus(client.healthScore)}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            const date = new Date().toISOString().split('T')[0];
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', `health-score-clients-${date}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function printTable() {
+            window.print();
+        }
+
+        // Exemples pré-remplis (optionnel - décommente pour ajouter des exemples)
+        /*
+        function loadExamples() {
+            const examples = [
+                { name: 'TechCorp', mrr: 2500, usageRate: 5.2, supportTickets: 2, npsScore: 9, renewalDays: 120, lastQBR: 15 },
+                { name: 'StartupXYZ', mrr: 1800, usageRate: 2.4, supportTickets: 8, npsScore: 5, renewalDays: 45, lastQBR: 60 },
+                { name: 'Enterprise Co', mrr: 5000, usageRate: 6.3, supportTickets: 0, npsScore: 10, renewalDays: 200, lastQBR: 10 }
+            ];
+            
+            examples.forEach(ex => {
+                const client = { ...ex, id: Date.now() + Math.random() };
+                client.healthScore = calculateHealthScore(client);
+                clients.push(client);
+            });
+            
+            updateTable();
+            updateStats();
+        }
+        
+        // Charge les exemples au démarrage (décommente la ligne suivante)
+        // loadExamples();
+        */
+    </script>
+</body>
+</html>
